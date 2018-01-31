@@ -104,6 +104,8 @@ $data = array(
 			array(
 				'confirmed' => 'http://example.com/api/order/123/confirm',
 				'sent' => 'http://example.com/api/order/123/sent',
+				'delivered' => 'http://example.com/api/order/123/delivered',
+				'returned' => 'http://example.com/api/order/123/returned',
 			),
 		)
 	),
