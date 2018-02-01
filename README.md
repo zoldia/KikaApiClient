@@ -14,6 +14,7 @@ const API_ID  = '5275fe3ca57307bf8cecfb7b08a447c0';
 const SECRET = 'ErYFgUCXWJeINyc89066ed90kcwr28ceta8s1t4a';
 
 $api = new RestApi(API_ID, SECRET);
+//$api->setEndpoint('https://system-dev.fhb.sk/api/v2'); // if you want to connect to DEV, uncomment this line
 $products = new Products($api);
 
 
@@ -32,20 +33,28 @@ try {
 
 	//create
 	$result = $products->create($data);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 	//update
 	$data['name'] = 'Šampón updated';
 	$result = $products->update($uniqueId, $data);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 	//read
 	$result = $products->read($uniqueId);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 	//readAll
 	$result = $products->readAll();
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 
 } catch (RestApiException $e) {
@@ -71,6 +80,7 @@ const SECRET = 'ErYFgUCXWJeINyc89066ed90kcwr28ceta8s1t4a';
 
 
 $api = new RestApi(API_ID, SECRET);
+//$api->setEndpoint('https://system-dev.fhb.sk/api/v2'); // if you want to connect to DEV, uncomment this line
 $orders = new Orders($api);
 
 
@@ -116,20 +126,28 @@ try {
 
 	//create
 	$result = $orders->create($data);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 	//update
 	$data['name'] = 'Martin Novák updated';
 	$result = $orders->update($uniqueId, $data);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 	//read
 	$result = $orders->read($uniqueId);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 	//delete
 	$result = $orders->delete($uniqueId);
+	echo '<pre>';
 	print_r($result);
+	echo '</pre>';
 
 
 } catch (RestApiException $e) {
