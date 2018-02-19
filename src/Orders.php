@@ -1,6 +1,6 @@
 <?php
 
-namespace Kika\Api;
+namespace Kika\ApiClient;
 
 
 class Orders

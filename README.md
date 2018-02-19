@@ -5,9 +5,9 @@ priklad pouzitia:
 
 ```php
 
-use Kika\Api\RestApi;
-use Kika\Api\Products;
-use Kika\Api\RestApiException;
+use Kika\ApiClient\RestApi;
+use Kika\ApiClient\Products;
+use Kika\ApiClient\RestApiException;
 
 
 const API_ID  = '5275fe3ca57307bf8cecfb7b08a447c0';
@@ -70,9 +70,9 @@ priklad pouzitia:
 
 ```php
 
-use Kika\Api\RestApi;
-use Kika\Api\Orders;
-use Kika\Api\RestApiException;
+use Kika\ApiClient\RestApi;
+use Kika\ApiClient\Orders;
+use Kika\ApiClient\RestApiException;
 
 
 const API_ID  = '5275fe3ca57307bf8cecfb7b08a447c0';

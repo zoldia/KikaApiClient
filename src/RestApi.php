@@ -1,6 +1,6 @@
 <?php
 
-namespace Kika\Api;
+namespace Kika\ApiClient;
 
 
 class RestApi
@@ -28,7 +28,7 @@ class RestApi
 	/** @var string */
 	private $token;
 
-	/** @var string */
+	/** @var \stdClass */
 	private $lastResult;
 
 
