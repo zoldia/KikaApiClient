@@ -143,6 +143,12 @@ try {
 	print_r($result);
 	echo '</pre>';
 
+	//anonymization
+	$result = $orders->anonymization($uniqueId);
+	echo '<pre>';
+	print_r($result);
+	echo '</pre>';
+
 	//delete
 	$result = $orders->delete($uniqueId);
 	echo '<pre>';

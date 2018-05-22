@@ -34,6 +34,12 @@ class Orders
 	}
 
 
+	public function anonymization($id)
+	{
+		return $this->api->put("anonymization?id=$id", ['id' => $id]);
+	}
+
+
 	public function read($id)
 	{
 		return $this->api->get("orders?id=$id");
