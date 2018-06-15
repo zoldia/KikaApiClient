@@ -98,6 +98,7 @@ $data = array(
 	'variableSymbol' => '588988552',
 	'cod' => '54.98',
 	'note' => 'poznamka',
+	'invoiceLink' => 'http://example.com/order/inv123.pdf',
 	'_embedded' => array(
 		'items' =>  array(
 			array(
