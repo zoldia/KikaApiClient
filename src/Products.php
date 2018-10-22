@@ -18,25 +18,25 @@ class Products
 
 	public function create(array $data)
 	{
-		return $this->api->post('products', $data);
+		return $this->api->post('product', $data, 200);
 	}
 
 
 	public function update($id, array $data)
 	{
-		return $this->api->patch("products?id=$id", $data);
+		return $this->api->put("product?id=$id", $data);
 	}
 
 
 	public function read($id)
 	{
-		return $this->api->get("products?id=$id");
+		return $this->api->get("product?id=$id");
 	}
 
 
 	public function readAll($page=1)
 	{
-		return $this->api->get("products?page=$page");
+		return $this->api->get("product/all?page=$page");
 	}
 
 }

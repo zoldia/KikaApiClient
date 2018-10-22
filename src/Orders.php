@@ -18,19 +18,19 @@ class Orders
 
 	public function create(array $data)
 	{
-		return $this->api->post('orders', $data);
+		return $this->api->post('order', $data, 200);
 	}
 
 
 	public function update($id, array $data)
 	{
-		return $this->api->put("orders?id=$id", $data);
+		return $this->api->put("order?id=$id", $data, 200);
 	}
 
 
 	public function delete($id)
 	{
-		return $this->api->delete("orders?id=$id");
+		return $this->api->delete("order?id=$id");
 	}
 
 
@@ -42,7 +42,7 @@ class Orders
 
 	public function read($id)
 	{
-		return $this->api->get("orders?id=$id");
+		return $this->api->get("order?id=$id");
 	}
 
 }

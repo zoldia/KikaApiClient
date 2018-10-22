@@ -9,6 +9,7 @@ class RestApi
 	const S200_OK = 200;
 	const S201_CREATED = 201;
 	const S204_NO_CONTENT = 204;
+	const S400_BAD_REQUEST = 400;
 
 	const GET = 'GET';
 	const POST = 'POST';
@@ -80,23 +81,23 @@ class RestApi
 	}
 
 
-	public function post($action, array $data)
+	public function post($action, array $data, $code = self::S201_CREATED)
 	{
-		$result = $this->call(self::POST, $action, $data, self::S201_CREATED);
+		$result = $this->call(self::POST, $action, $data, $code);
 		return $result->json;
 	}
 
 
-	public function put($action, array $data)
+	public function put($action, array $data, $code = self::S200_OK)
 	{
-		$result = $this->call(self::PUT, $action, $data, self::S200_OK);
+		$result = $this->call(self::PUT, $action, $data, $code);
 		return $result->json;
 	}
 
 
-	public function patch($action, array $data)
+	public function patch($action, array $data, $code = self::S201_CREATED)
 	{
-		$result = $this->call(self::PATCH, $action, $data, self::S201_CREATED);
+		$result = $this->call(self::PATCH, $action, $data, $code);
 		return $result->json;
 	}
 
@@ -108,6 +109,11 @@ class RestApi
 	}
 
 
+    /**
+     * @return \stdClass
+     * @throws BadRequestException
+     * @throws RestApiException
+     */
 	public function call($method, $action, array $data = [], $code = self::S200_OK)
 	{
 		$curl = $this->login($action);
@@ -122,12 +128,17 @@ class RestApi
 		curl_close($curl);
 		$json = json_decode($response);
 
-		if ($httpCode != $code) {
+		if ($httpCode === self::S400_BAD_REQUEST) {
+		    throw BadRequestException::fromResponse(json_decode($response, true));
+        }
+
+		if ($httpCode !== $code) {
 			$message = isset($json->message) ? $json->message : "Unknown error. Http code {$httpCode}.";
 			throw new RestApiException($message, $httpCode);
 		}
 
-		$this->lastResult = (object)array('httpCode' => $httpCode, 'json' => $json, 'raw' => $response);
+		$this->lastResult = (object) array('httpCode' => $httpCode, 'json' => $json, 'raw' => $response);
+
 		return $this->lastResult;
 	}
 	
@@ -140,33 +151,43 @@ class RestApi
 			"Content-Type: application/json",
 			"X-Authentication-Simple: " . base64_encode($this->getToken())
 		));
+
 		return $curl;
 	}
 
 
+    /**
+     * @return string
+     * @throws BadRequestException
+     * @throws RestApiException
+     */
 	private function createToken()
 	{
 		$data = [
-			'appId' => $this->appId,
+			'app_id' => $this->appId,
 			'secret' => $this->secret
 		];
 
 		$curl = $this->createCurl('login');
-		curl_setopt($curl, CURLOPT_POST, TRUE);
+		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		$response = curl_exec($curl);
 		$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		$json = json_decode($response);
+		$json = json_decode($response, true);
 		curl_close($curl);
 
+		if ($httpCode === self::S400_BAD_REQUEST) {
+		    throw BadRequestException::fromResponse($json);
+        }
+
 		if ($httpCode != self::S200_OK) {
-			$message = isset($json->message) ? $json->message : "Unknown error. Http code $httpCode.";
+			$message = isset($json['message']) ? $json['message'] : "Unknown error. Http code $httpCode.";
 			throw new RestApiException($message, $httpCode);
 		}
 
-		return $json->token;
+		return $json['token'];
 	}
 
 
@@ -184,4 +205,5 @@ class RestApi
 
 
 class RestApiException extends \Exception
-{}
+{
+}
