@@ -160,4 +160,15 @@ catch (Kika\ApiClient\BadRequestException $e) {
 }
 
 print_r($result);
+
+/**
+ * Order attacments
+ */
+try {
+    $orders->addFile($uniqueId, 'Invoice.pdf', file_get_contents('/absolute/path/to/Invoice.pdf'));
+}
+catch (Kika\ApiClient\BadRequestException $e) {
+    print_r($e->getViolations());
+    exit;
+}
 ```

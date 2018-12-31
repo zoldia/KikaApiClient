@@ -45,4 +45,14 @@ class Orders
 		return $this->api->get("order?id=$id");
 	}
 
+
+	public function addFile($id, $fileName, $data)
+    {
+        $request = [
+            'name' => $fileName,
+            'data' => base64_encode($data)
+        ];
+
+        return $this->api->post("order/files?id=$id", $request, 204);
+    }
 }
