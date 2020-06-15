@@ -181,7 +181,3 @@ class RestApi
 	}
 
 }
-
-
-class RestApiException extends \Exception
-{}
