@@ -82,7 +82,7 @@ class RestApi
 
 	public function post($action, array $data)
 	{
-		$result = $this->call(self::POST, $action, $data, self::S201_CREATED);
+		$result = $this->call(self::POST, $action, $data, self::S200_OK);
 		return $result->json;
 	}
 
@@ -147,7 +147,7 @@ class RestApi
 	private function createToken()
 	{
 		$data = [
-			'appId' => $this->appId,
+			'app_id' => $this->appId,
 			'secret' => $this->secret
 		];
 
