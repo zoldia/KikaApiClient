@@ -24,7 +24,7 @@ class Products
 
 	public function update($id, array $data)
 	{
-		return $this->api->patch("product?id=$id", $data);
+		return $this->api->put("product?id=$id", $data);
 	}
 
 
